@@ -31,6 +31,16 @@ if(isset($_POST['submit_article'])) {
     } else {
         echo "FATAL ERROR!!";
     }
+}elseif (isset($_POST['submit_position'])){
+    $insert = $db->insertPosition(
+        $_POST['position']
+    );
+
+    if($insert) {
+        header('Location: admin.php');
+    } else {
+        echo "FATAL ERROR!!";
+    }
 } else {
     header('Location: admin.php');
 }

@@ -134,7 +134,7 @@ class db
             return  $article;
 
         } catch (\PDOException $e) {
-            return [];
+            return $article;
         }
     }
 
@@ -223,14 +223,29 @@ class db
             return [];
         }
     }
+    
+    public function getEmployee($id){
+        $employee = [];
+        $sql = "SELECT * FROM employees WHERE id=".$id;
+
+        try {
+            $query = $this->connection->query($sql);
+            $employee = $query->fetchAll(\PDO::FETCH_ASSOC);
+            return  $employee;
+
+        } catch (\PDOException $e) {
+            return $employee;
+        }
+    }
     public function getEmployeePositions(){
-        $sql = "SELECT position FROM employee_position";
+        $sql = "SELECT position, id FROM employee_position";
         $positions = [];
         try {
             $query = $this->connection->query($sql);
             while ($row = $query->fetch()) {
                 $positions[] = [
-                    'position' => $row['position']
+                    'position' => $row['position'],
+                    'id' => $row['id']
                 ];
             }
             return  $positions;
@@ -238,16 +253,24 @@ class db
             return [];
         }
     }
+    public function getEmployeePositionId($position){
+        $sql = "SELECT id FROM employee_position WHERE position='".$position."'";
+        try {
+            $query = $this->connection->query($sql);
+            $id = $query->fetchAll(\PDO::FETCH_ASSOC);
+            return $id[0]['id'];
+        } catch (\PDOException $e) {
+            return false;
+        }
+
+    }
     public function insertEmployee($name, $position, $about, $image, $youtube, $linkedin, $twitter){
 
         $sql = "SELECT id FROM employee_position WHERE position='".$position."'";
         try {
             $query = $this->connection->query($sql);
-
             $id = $query->fetchAll(\PDO::FETCH_ASSOC);
-            var_dump($id[0]['id']);
             $sql = "INSERT INTO employees VALUES (null, '".$name."', '".$id[0]['id']."', '".$about."', '".$image."', '".$youtube."', '".$linkedin."', '".$twitter."')";
-            var_dump($sql);
             $this->connection->query($sql);
             return true;
         } catch (\PDOException $e) {
@@ -258,6 +281,27 @@ class db
 
     public function deleteEmployee($id){
         $sql = "DELETE FROM employees WHERE id=".$id;
+        try {
+            $this->connection->query($sql);
+            return true;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function updateEmployee($id, $name, $position, $about, $image, $youtube, $linkedin, $twitter){
+        $position_id = $this->getEmployeePositionId($position);
+        $sql = "UPDATE employees SET name='".$name."', position_id='".$position_id."', about='".$about."', fotka='".$image."', youtube='".$youtube."', linkedin='".$linkedin."', twitter='".$twitter."' WHERE id = ".$id;
+        try {
+            $this->connection->query($sql);
+            return true;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    public function insertPosition($position){
+        $sql = "INSERT INTO employee_position VALUES (null, '".$position."')";
         try {
             $this->connection->query($sql);
             return true;

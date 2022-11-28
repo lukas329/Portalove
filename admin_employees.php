@@ -9,6 +9,7 @@ if(
 
     echo '
     <a href="insert_employees.php"><button style="width: 150px; height: 20px">Pridať zamestnanca</button></a><br>
+    <a href="insert_employees_position.php"><button style="width: 150px; height: 20px">Pridať pozíciu</button></a><br>
    <ul>
     ';
     foreach ($employees as $employee) {
