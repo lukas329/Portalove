@@ -255,4 +255,14 @@ class db
         }
 
     }
+
+    public function deleteEmployee($id){
+        $sql = "DELETE FROM employees WHERE id=".$id;
+        try {
+            $this->connection->query($sql);
+            return true;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
 }

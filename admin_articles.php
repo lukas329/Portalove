@@ -5,15 +5,22 @@ $db = $GLOBALS['db'];
 
 if(
     isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
+    $articles = $db->getAllArticles();
 
     echo '
-    <a href="admin_articles.php"><button style="width: 150px; height: 20px">Články</button></a><br>
-    <a href="admin_employees.php"><button   style="width: 150px; height: 20px">Zamestnanci</button></a><br>
-    <br><br>
-    <a href="index.php"><button style="width: 150px; height: 20px">Späť na stránku</button></a><br><br><br>
-    <a href="logout.php"><button style="width: 150px; height: 20px">Odhlásiť sa</button></a><br>
+    <a href="insert_article.php"><button style="width: 150px; height: 20px">Pridať článok</button></a><br>
+   <ul>
     ';
-} else {
+    foreach ($articles as $article) {
+        echo '<li>'
+            .$article['header'].
+            '<br><a href="delete.php?id='.$article['id'].'">Delete</a> 
+         <br><a href="update.php?id='.$article['id'].'">Update</a> 
+         
+        </li><br>';
+    }
+    echo "</ul>";
+}else {
     ?>
     <form method="post" action="login.php">
         Username: <br>
@@ -25,3 +32,4 @@ if(
     <?php
 }
 ?>
+
