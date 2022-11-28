@@ -7,10 +7,10 @@ if(
     isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true) {
     $articles = $db->getAllArticles();
 
-    echo '<a href="insert_article.php">Insert Article</a><br>';
-    echo '<a href="insert_employees.php">Insert Employee</a><br>';
-    echo '<a href="index.php">Web page</a><br>';
-    echo '<a href="logout.php">Logout</a><br>';
+    echo '<a href="insert_article.php">Insert Article</a><br>
+          <a href="insert_employees.php">Insert Employee</a><br>
+          <a href="index.php">Web page</a><br>
+          <a href="logout.php">Logout</a><br';
 
     echo "<ul>";
 
