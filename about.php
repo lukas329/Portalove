@@ -4,6 +4,8 @@ include_once "db_connect.php";
 $db = $GLOBALS['db'];
 $menu = $db->getMenu();
 $employees = $db->getEmployees();
+$introData = $db->getIntroData();
+$outroData=$db->getOutro();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,9 +103,8 @@ https://templatemo.com/tm-549-business-oriented
             <div class="row">
                 <div class="col-12">
                     <div class="tm-overlay p-5 mx-auto text-center">
-                        <p class="mb-5 text-white">Here is a text paragraph to join our team. This is a parallax image
-                            background section. Phasellus interdum lobortis ultrices. Cras nulla nulla, fermentum vel ligula in.</p>
-                        <a href="#" class="btn btn-primary">Join Our Team</a>
+                        <p class="mb-5 text-white"><?php echo $outroData[0]['text']; ?></p>
+                        <a href="contact.php" class="btn btn-primary"><?php echo $outroData[0]['header']; ?></a>
                     </div>
                 </div>
             </div>
@@ -113,25 +114,14 @@ https://templatemo.com/tm-549-business-oriented
     <div class="container-fluid mt-7">
         <div class="row">
             <div class="col-lg-5 col-md-6 mb-4">
-                <h3 class="tm-title-gray mb-4">About the business oriented</h3>
+                <h3 class="tm-title-gray mb-4"><?php echo $introData[0]['header']; ?></h3>
                 <hr class="mb-5 tm-hr">
-                    <p class="mb-5">
-            Business Oriented Template is free HTML CSS layout made for your corporate or <a href="https://templatemo.com/tag/digital-marketing" target="_blank">digital marketing</a> websites. You can download, edit, and apply this template. </p>
-                <p class="mb-5">
-                    If you wish to support us via PayPal, feel free to <a href="https://templatemo.com/contact" target="_blank">contact us</a>. Please do not re-distribute the
-                template ZIP file on any template collection website. Thank you. </p>
+                    <p class="mb-5"><?php echo $introData[0]['text']; ?></p>
             </div>
             <div class="col-lg-6 col-md-6 mb-4 mr-0 ml-auto">
-                <h3 class="tm-title-gray mb-4">History of our company</h3>
+                <h3 class="tm-title-gray mb-4"><?php echo $outroData[0]['header']; ?></h3>
                 <hr class="mb-5 tm-hr">
-                <p class="mb-5">
-                    Aenean placerat neque fermentum diam malesuada, eget pretium felis elementum. Ut aliquam imperdiet
-                    velit quis imperdiet. Aliquam facilisis commodo tristique.
-                </p>
-                <p class="mb-5">
-                    Nam feugiat, sem vitae mollis auctor, est dolor suscipit massa, vitae consectetur erat elit vel dui.
-                    Phasellus pellentesque in urna at imperdiet. Nulla euismod nibh bibendum.
-                </p>
+                <p class="mb-5"><?php echo $outroData[0]['text']; ?></p>
             </div>
         </div>
     </div>

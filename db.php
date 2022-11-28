@@ -309,4 +309,14 @@ class db
             return false;
         }
     }
+
+    public function sendMessage($name, $email, $subject,$message){
+        $sql = "INSERT INTO messages VALUES (null, '".$name."', '".$email."', '".$subject."', '".$message."', NOW())";
+        try {
+            $this->connection->query($sql);
+            return true;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
 }

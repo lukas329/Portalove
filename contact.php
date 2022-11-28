@@ -1,3 +1,10 @@
+<?php
+include_once "db_connect.php";
+
+$db = $GLOBALS['db'];
+$menu = $db->getMenu();
+$positions = $db->getEmployeePositions();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,25 +43,21 @@ https://templatemo.com/tm-549-business-oriented
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-lg" id="tm-main-nav">
-                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse"
-                            data-target="#navbar-nav" aria-controls="navbar-nav" aria-expanded="false"
-                            aria-label="Toggle navigation">
+                        <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbar-nav"
+                                aria-controls="navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="dark-blue-text"><i class="fas fa-bars"></i></span>
                         </button>
-                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">                            
+                        <div class="collapse navbar-collapse tm-nav" id="navbar-nav">
                             <ul class="navbar-nav ml-auto">
+                                <?php
+                                foreach ($menu as $item){
+                                    echo '
                                 <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="index.php">Home</a>
+                                    <a class="nav-link tm-nav-link" href="'.$item['href'].'">'.$item['name'].'</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="articles.php">Services</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link tm-nav-link" href="about.php">About</a>
-                                </li>
-                                <li class="nav-item active">
-                                    <a class="nav-link tm-nav-link" href="contact.html">Contact <span class="sr-only">(current)</span></a>
-                                </li>
+                                ';
+                                }
+                                ?>
                             </ul>
                         </div>
                     </nav>
@@ -67,29 +70,30 @@ https://templatemo.com/tm-549-business-oriented
         <div class="row">
             <div class="col-12">
                 <section class="tm-contact-form-box mx-auto mb-7">
-                    <h3 class="tm-title-gray mb-4 text-center">Contact Information</h3>
+                    <h3 class="tm-title-gray mb-4 text-center">Kontaktujte nás</h3>
                     <hr class="mb-8 tm-hr tm-hr-s mx-auto">
-                    <form id="contact-form" action="" method="POST" class="tm-contact-form">
+                    <form id="contact-form" action="send_message.php" method="POST" class="tm-contact-form">
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control rounded-0" placeholder="Name" required />
+                            <input type="text" name="name" class="form-control rounded-0" placeholder="Meno" required />
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" class="form-control rounded-0" placeholder="Email" required />
+                            <input type="email" name="email" class="form-control rounded-0" placeholder="email" required />
                         </div>
                         <div class="form-group">
-                            <select class="form-control" id="contact-select" name="inquiry">
-                                <option value="-">Subject</option>
-                                <option value="sales">Sales &amp; Marketing</option>
-                                <option value="creative">Creative Design</option>
-                                <option value="uiux">UI / UX</option>
+                            <select class="form-control" id="contact-select" name="subject">
+                                <?php
+                                foreach ($positions as $position){
+                                    echo '<option>'.$position['position'].'</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea rows="8" name="message" class="form-control rounded-0" placeholder="Message" required=></textarea>
+                            <textarea rows="8" name="message" class="form-control rounded-0" placeholder="Správa" required=></textarea>
                         </div>
 
                         <div class="form-group mb-0">
-                            <button type="submit" class="btn btn-primary rounded-0 d-block mx-auto">Submit</button>
+                            <button type="submit" name="submit_message" class="btn btn-primary rounded-0 d-block mx-auto">Odoslať správu</button>
                         </div>
                     </form>
                 </section>
