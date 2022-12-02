@@ -32,7 +32,7 @@ https://templatemo.com/tm-549-business-oriented
                 <div class="col-12">
                     <div class="tm-logo">
                         <i class="fas fa-industry fa-5x mr-5"></i>
-                        <span class="text-uppercase tm-logo-text">Business Oriented</span>
+                        <span class="text-uppercase tm-logo-text">mITness</span>
                     </div>
                 </div>
             </div>
